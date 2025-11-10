@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Fantacalcolo - Media & Formazione</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 20px; }
+table, th, td { border: 1px solid black; border-collapse: collapse; padding: 6px; }
+th { background: #e6e6e6; }
+select { width: 100%; margin-bottom: 6px; }
+</style>
+</head>
+<body>
+
+<h2>Incolla i dati dei giocatori (anche se disordinati):</h2>
+<textarea id="raw" rows="18" cols="90"></textarea><br><br>
+<button onclick="process()">Elabora</button>
+
+<h2>Giocatori con Media</h2>
+<table id="playersTable"></table>
+
+<h2>Schiera la Formazione (11 giocatori)</h2>
+<div id="formation"></div>
+
+<p><strong>Voto Totale Stimato:</strong> <span id="totalScore">0</span></p>
+
+<script>
+// ✅ Parser che pulisce i dati e li tratta come CSV automaticamente
+function parseRawText(raw){
+  const lines = raw.split(/\r?\n/)
+                   .map(l => l.trim())
+                   .filter(l => l !== "");
+
+  const players = [];
+  let current = null;
+
+  for (let line of lines) {
+
+    // Se contiene lettere → è un nome giocatore
+    if (/[A-Za-z\u00C0-\u017F]/.test(line) && !line.match(/^[0-9\.\,\s]+$/)) {
+      current = { name: line, scores: [] };
+      players.push(current);
+      continue;
+    }
+
+    // Altrimenti estrai solo numeri validi
+    const csvCells = line.replace(/,/g, '.').split(/\s+|;/);
+
+    csvCells.forEach(cell => {
+      const value = parseFloat(cell);
+      if (!isNaN(value)) current.scores.push(value);
+    });
+  }
+
+  // Rimuove i giocatori che non hanno almeno un voto numerico
+  return players.filter(p => p.scores.length > 0);
+}
+
+// ✅ Media matematica solo sui numeri
+function avg(arr){
+  const valid = arr.filter(v => !isNaN(v));
+  return valid.length ? (valid.reduce((a,b)=>a+b,0)/valid.length).toFixed(2) : "-";
+}
+
+// ✅ Elaborazione completa
+function process(){
+  const raw = document.getElementById("raw").value;
+  const players = parseRawText(raw);
+
+  // Tabella medie
+  const tbl = document.getElementById("playersTable");
+  tbl.innerHTML = "<tr><th>Giocatore</th><th>Media</th></tr>";
+  players.forEach(p=>{
+    tbl.innerHTML += `<tr><td>${p.name}</td><td>${avg(p.scores)}</td></tr>`;
+  });
+
+  // Solo giocatori realmente schierabili
+  const selectable = players.filter(p => p.scores.length > 0);
+
+  // Formazione (11 scelte)
+  const formation = document.getElementById("formation");
+  formation.innerHTML = "";
+  for(let i=0;i<11;i++){
+    let s = "<select class='slot' onchange='updateTotal()'>";
+    s += "<option value=''>-- Scegli Giocatore --</option>";
+    selectable.forEach(p=>{
+      s += `<option value="${avg(p.scores)}">${p.name} (${avg(p.scores)})</option>`;
+    });
+    s += "</select><br>";
+    formation.innerHTML += s;
+  }
+}
+
+// ✅ Calcola il totale della formazione
+function updateTotal(){
+  const scores = [...document.querySelectorAll('.slot')]
+    .map(s=>parseFloat(s.value))
+    .filter(v=>!isNaN(v));
+
+  const total = scores.reduce((a,b)=>a+b,0).toFixed(2);
+  document.getElementById("totalScore").innerText = total;
+}
+</script>
+
+</body>
+</html>

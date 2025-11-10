@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lezione 1-2: Che cos'è la scienza — Percorso</title>
+  <style>
+    :root{
+      --bg:#f7fbff; --card:#ffffff; --accent:#2b6cb0; --muted:#666;
+      --pad:18px; --radius:10px; --maxw:980px;
+    }
+    body{
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,#eef6ff 0%,var(--bg) 100%);
+      color:#222; margin:0; display:flex; justify-content:center;
+      padding:30px 20px;
+    }
+    .wrap{ width:100%; max-width:var(--maxw); }
+    header{ display:flex; align-items:center; gap:16px; margin-bottom:18px; }
+    header h1{ font-size:20px; margin:0; color:var(--accent); }
+    header p{ margin:0; color:var(--muted); font-size:14px; }
+
+    .nav{
+      display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;
+    }
+    .nav button{
+      background:transparent; border:1px solid #d0e4fb; padding:8px 12px;
+      border-radius:8px; cursor:pointer; color:var(--accent);
+    }
+    .container{
+      background:var(--card); border-radius:var(--radius); padding:var(--pad);
+      box-shadow: 0 6px 18px rgba(30,60,120,0.06);
+      display:grid; grid-template-columns: 1fr 360px; gap:18px;
+    }
+
+    .slide{
+      min-height:380px;
+    }
+    h2{ margin-top:0; color:#153E63 }
+    .text p{ margin:10px 0; line-height:1.45; }
+    .meta{ color:var(--muted); font-size:14px; margin-top:8px; }
+
+    .aside{
+      border-left:1px dashed #e6f0fb; padding-left:16px;
+    }
+    .image-wrap{ background:#f3f8ff; padding:10px; border-radius:8px; text-align:center; }
+    .image-wrap img{ max-width:100%; height:auto; border-radius:6px; display:block; margin:0 auto; }
+    .file-row{ margin-top:10px; display:flex; gap:8px; align-items:center; }
+    .file-row input[type=file]{ display:block; }
+    .hint{ font-size:13px; color:var(--muted); margin-top:8px; }
+
+    .controls{ margin-top:12px; display:flex; gap:8px; }
+    .controls button{
+      background:var(--accent); color:#fff; border:0; padding:10px 14px;
+      border-radius:8px; cursor:pointer;
+    }
+    .controls button.secondary{
+      background:#fff; color:var(--accent); border:1px solid #d0e4fb;
+    }
+
+    footer{ margin-top:14px; color:var(--muted); font-size:13px; text-align:center;}
+    @media (max-width:900px){
+      .container{ grid-template-columns: 1fr; }
+      .aside{ border-left:0; padding-left:0; padding-top:12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Lezione 1–2: Che cos'è la scienza</h1>
+      <p>Percorso in 10 concetti — attività discorsive e domande guida</p>
+    </header>
+
+    <nav class="nav" id="nav">
+      <!-- buttons injected by JS -->
+    </nav>
+
+    <main class="container">
+      <section class="slide" id="slide">
+        <h2 id="slide-title">Titolo</h2>
+        <div class="text" id="slide-text">
+          <!-- text paragraphs injected -->
+        </div>
+        <div class="meta" id="slide-meta"></div>
+
+        <div class="controls">
+          <button id="prevBtn" class="secondary">← Precedente</button>
+          <button id="nextBtn">Successivo →</button>
+        </div>
+      </section>
+
+      <aside class="aside">
+        <div class="image-wrap">
+          <img id="slide-image" src="images/img_1425.jpg" alt="Immagine concetto" />
+        </div>
+        <div class="file-row">
+          <label for="fileInput">Carica immagine per questa pagina</label>
+          <input type="file" id="fileInput" accept="image/*" />
+        </div>
+        <div class="hint">Consiglio: rinomina l'immagine prima di caricarla, oppure metti le immagini nella cartella <code>images/</code> con i nomi <code>img_1405.jpg</code> … <code>img_1426.jpg</code>.</div>
+      </aside>
+    </main>
+
+    <footer>
+      Usa i pulsanti o la barra di navigazione per spostarti tra i concetti. Le immagini caricate sono anteprime locali (non vengono salvate sul server).
+    </footer>
+  </div>
+
+  <script>
+    // ======= CONTENUTI: 10 concetti con almeno 3 frasi ciascuno =======
+    const slides = [
+      {
+        id:1,
+        title:"La scienza nasce dalle domande",
+        paragraphs:[
+          "La scienza comincia quando ci poniamo una domanda sul mondo che ci circonda. Non è una risposta immediata, ma la curiosità che ci spinge a cercare spiegazioni. Ogni domanda può diventare l'inizio di un piccolo esperimento o di una riflessione condivisa in classe."
+        ],
+        prompt:"Domanda che puoi usare in classe: 'Perché piove?'"
+      },
+      {
+        id:2,
+        title:"Le domande portano a osservare",
+        paragraphs:[
+          "Dopo la domanda, il passo successivo è osservare con attenzione: guardare con cura ciò che succede. L'osservazione ci dà i dati grezzi da cui partire. In classe possiamo esercitarci a notare dettagli che prima non vedevamo."
+        ],
+        prompt:"Esempio: osserviamo insieme un oggetto e scriviamo cosa notiamo."
+      },
+      {
+        id:3,
+        title:"Osservare non è interpretare",
+        paragraphs:[
+          "Descrivere vuol dire dire esattamente ciò che si vede, senza aggiungere opinioni. 'La penna è blu' è un'osservazione; 'la penna è bella' è un giudizio. Imparare a separare osservazione da interpretazione aiuta a fare misurazioni e idee più chiare."
+        ],
+        prompt:"Attività: descrivi un oggetto senza usare aggettivi personali."
+      },
+      {
+        id:4,
+        title:"La realtà può essere studiata",
+        paragraphs:[
+          "Il mondo può essere compreso passo dopo passo seguendo un ordine: osservare, ipotizzare, verificare. Questo ordine permette di trasformare una curiosità in conoscenza condivisa. Anche problemi quotidiani diventano studiabili con questo approccio."
+        ],
+        prompt:"Discussione: racconta qualcosa che hai capito osservando con attenzione."
+      },
+      {
+        id:5,
+        title:"L'ipotesi è un'idea da controllare",
+        paragraphs:[
+          "Un'ipotesi è una possibile spiegazione nata dalla nostra osservazione. Non è la verità definitiva: è un'idea da mettere alla prova. In classe si possono proporre più ipotesi e decidere insieme come provarle."
+        ],
+        prompt:"Domanda pratica: cosa pensi succederà se scaldiamo il ghiaccio?"
+      },
+      {
+        id:6,
+        title:"L'esperimento mette alla prova l'ipotesi",
+        paragraphs:[
+          "L'esperimento è la prova concreta per controllare se l'ipotesi regge. Si scelgono materiali semplici e si osservano i risultati. Anche un esperimento piccolo, fatto insieme, insegna il valore del metodo."
+        ],
+        prompt:"Esempio semplice: mettere un cubetto di ghiaccio al calore e osservare cosa succede."
+      },
+      {
+        id:7,
+        title:"I risultati possono confermare o smentire",
+        paragraphs:[
+          "I risultati di un esperimento possono confermare l'ipotesi oppure mostrarne i limiti. Non è un fallimento se l'ipotesi viene smentita: è un passo importante per imparare. Analizzare i risultati aiuta a migliorare le domande successive."
+        ],
+        prompt:"Discussione: perché cambiare idea dopo un esperimento è segno di maturità scientifica?"
+      },
+      {
+        id:8,
+        title:"La scienza usa un linguaggio chiaro",
+        paragraphs:[
+          "Per condividere le informazioni è necessario usare parole precise e misure comuni. Dire '10 cm' è più utile di 'un poco lungo'. Usare un linguaggio chiaro evita fraintendimenti e facilita il confronto dei dati."
+        ],
+        prompt:"Esempio: confrontiamo 'alto/basso' con una misura espressa in centimetri."
+      },
+      {
+        id:9,
+        title:"La scienza si può sbagliare",
+        paragraphs:[
+          "Anche gli scienziati sbagliano: l'errore è parte del percorso. Quando si scopre un errore, si corregge e si migliora la conoscenza. L'atteggiamento corretto è accogliere l'errore come opportunità di apprendimento."
+        ],
+        prompt:"Discussione: racconta una volta in cui hai cambiato idea dopo aver visto nuove prove."
+      },
+      {
+        id:10,
+        title:"La scienza riguarda la vita di tutti i giorni",
+        paragraphs:[
+          "La scienza non è solo nei laboratori: è nella cucina, nella cura del corpo, nel clima e nei trasporti. Riconoscere i fenomeni scientifici nella vita quotidiana rende la scienza utile e concreta. Portare esempi reali aiuta a capire perché studiare questi concetti."
+        ],
+        prompt:"Attività: trova tre esempi scientifici nella tua giornata."
+      }
+    ];
+
+    // ======= DEFAULT IMAGE ASSIGNMENT =======
+    // User asked first page to use img_1425 specifically.
+    // We'll map: slide 1 -> img_1425, slide 2..10 -> img_1405 .. img_1413 (example)
+    const defaultImages = {
+      1: "images/img_1425.jpg",
+      2: "images/img_1405.jpg",
+      3: "images/img_1406.jpg",
+      4: "images/img_1407.jpg",
+      5: "images/img_1408.jpg",
+      6: "images/img_1409.jpg",
+      7: "images/img_1410.jpg",
+      8: "images/img_1411.jpg",
+      9: "images/img_1412.jpg",
+      10: "images/img_1413.jpg"
+    };
+
+    // ======= Build navigation and initial state =======
+    const nav = document.getElementById('nav');
+    slides.forEach(s=>{
+      const btn = document.createElement('button');
+      btn.textContent = `${s.id}. ${s.title}`;
+      btn.onclick = () => showSlide(s.id);
+      nav.appendChild(btn);
+    });
+
+    const titleEl = document.getElementById('slide-title');
+    const textEl = document.getElementById('slide-text');
+    const metaEl = document.getElementById('slide-meta');
+    const imgEl = document.getElementById('slide-image');
+    const fileInput = document.getElementById('fileInput');
+
+    let current = 1;
+    // Keep a map of custom uploaded objectURLs to revoke later
+    const uploadedURLs = {};
+
+    function showSlide(idx){
+      const s = slides.find(x=>x.id===idx);
+      if(!s) return;
+      current = idx;
+      titleEl.textContent = `${s.id}. ${s.title}`;
+
+      // Clear text and fill paragraphs (ensure at least 3 sentences)
+      textEl.innerHTML = "";
+      s.paragraphs.forEach(p=>{
+        const pEl = document.createElement('p');
+        pEl.textContent = p;
+        textEl.appendChild(pEl);
+      });
+      // Add prompt / question block
+      const prompt = document.createElement('div');
+      prompt.style.marginTop = "8px";
+      prompt.style.padding = "8px";
+      prompt.style.background = "#f6fbff";
+      prompt.style.borderLeft = "3px solid #d7e9ff";
+      prompt.textContent = "Spunto / Domanda: " + (s.prompt || "");
+      textEl.appendChild(prompt);
+
+      metaEl.textContent = "Argomento per lezione 1–2. Usa le domande per attivare la discussione.";
+
+      // set image: if uploaded exists use that, else default
+      if(uploadedURLs[idx]){
+        imgEl.src = uploadedURLs[idx];
+      } else {
+        imgEl.src = defaultImages[idx] || "images/img_1405.jpg";
+      }
+
+      // reset file input
+      fileInput.value = "";
+    }
+
+    // File input change per slide -> preview per page
+    fileInput.addEventListener('change', (ev)=>{
+      const f = ev.target.files[0];
+      if(!f) return;
+      const url = URL.createObjectURL(f);
+      // revoke previous if exists
+      if(uploadedURLs[current]) URL.revokeObjectURL(uploadedURLs[current]);
+      uploadedURLs[current] = url;
+      imgEl.src = url;
+    });
+
+    // Prev / Next buttons
+    document.getElementById('prevBtn').addEventListener('click', ()=>{
+      const prev = current - 1 <= 0 ? slides.length : current - 1;
+      showSlide(prev);
+    });
+    document.getElementById('nextBtn').addEventListener('click', ()=>{
+      const next = current + 1 > slides.length ? 1 : current + 1;
+      showSlide(next);
+    });
+
+    // Initialize first slide
+    showSlide(1);
+
+    // Helpful: keyboard navigation
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === "ArrowRight") document.getElementById('nextBtn').click();
+      if(e.key === "ArrowLeft") document.getElementById('prevBtn').click();
+    });
+  </script>
+</body>
+</html>

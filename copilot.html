@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Lezione: Che cos'è la scienza</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .slide {
+      display: none;
+      padding: 40px;
+      text-align: center;
+    }
+    .slide.active {
+      display: block;
+    }
+    img {
+      max-width: 80%;
+      height: auto;
+      margin-top: 20px;
+    }
+    .navigation {
+      text-align: center;
+      margin: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 0 10px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Diapositive -->
+<div id="slides">
+  <!-- Esempio di una diapositiva -->
+  <section class="slide active">
+    <h2>1. La scienza nasce dalle domande</h2>
+    <p>La scienza comincia con la curiosità. Ogni scoperta nasce da una domanda.</p>
+    <p>Chiedersi "perché?" è il primo passo per comprendere il mondo che ci circonda.</p>
+    <p>Domande come "Perché piove?" o "Perché le foglie sono verdi?" sono l'inizio del pensiero scientifico.</p>
+    <img src="img_1425.jpg" alt="Immagine 1425">
+  </section>
+
+  <section class="slide">
+    <h2>1b. Le domande quotidiane</h2>
+    <p>Ogni giorno ci poniamo domande senza rendercene conto.</p>
+    <p>Queste domande sono il motore della conoscenza e ci spingono a cercare risposte.</p>
+    <p>Invitiamo gli studenti a scrivere tre domande che si sono posti oggi.</p>
+    <img src="img_1426.jpg" alt="Immagine 1426">
+  </section>
+
+  <!-- Le altre 18 diapositive -->
+  <!-- Puoi continuare con lo stesso schema, cambiando il contenuto e aggiornando le immagini da img_1405.jpg a img_1424.jpg -->
+
+  <!-- Esempio per la seconda coppia -->
+  <section class="slide">
+    <h2>2. Le domande portano a osservare</h2>
+    <p>Per rispondere a una domanda, dobbiamo osservare con attenzione ciò che ci circonda.</p>
+    <p>Osservare significa usare i sensi per raccogliere informazioni senza giudicare.</p>
+    <p>È il primo passo per costruire una comprensione solida della realtà.</p>
+    <img src="img_1405.jpg" alt="Immagine 1405">
+  </section>
+
+  <section class="slide">
+    <h2>2b. Guardare con attenzione</h2>
+    <p>Prendiamo un oggetto comune, come una tazza, e descriviamolo nei dettagli.</p>
+    <p>Che forma ha? Di che colore è? Ha decorazioni? È pesante o leggera?</p>
+    <p>Questa attività ci aiuta a distinguere tra osservazione e interpretazione.</p>
+    <img src="img_1406.jpg" alt="Immagine 1406">
+  </section>
+
+  <!-- Continua con le altre coppie di diapositive... -->
+</div>
+
+<!-- Navigazione -->
+<div class="navigation">
+  <button onclick="changeSlide(-1)">Precedente</button>
+  <button onclick="changeSlide(1)">Successiva</button>
+</div>
+
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+
+  function changeSlide(direction) {
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide + direction + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
+  }
+</script>
+
+</body>
+</html>

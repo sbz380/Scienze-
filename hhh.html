@@ -1,0 +1,32 @@
+<script>
+function parseRawText(raw){
+  // 1) Pulizia righe e standardizzazione
+  const lines = raw.split(/\r?\n/)
+                   .map(l => l.trim())
+                   .filter(l => l !== "");
+
+  const players = [];
+  let current = null;
+
+  for (let line of lines) {
+
+    // Se contiene *lettere* → è un nome giocatore
+    if (/[A-Za-z\u00C0-\u017F]/.test(line)) {
+      current = { name: line, scores: [] };
+      players.push(current);
+      continue;
+    }
+
+    // Se non è un nome → potrebbe contenere voti → trasformo la riga in CSV
+    const csvCells = line.replace(/,/g, '.').split(/\s+|;/);
+
+    csvCells.forEach(cell => {
+      const value = parseFloat(cell);
+      if (!isNaN(value)) current.scores.push(value); // prendo SOLO numeri
+    });
+  }
+
+  // Filtra via i giocatori senza voti numerici validi
+  return players.filter(p => p.scores.length > 0);
+}
+</script>
