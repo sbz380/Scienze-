@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Lezione 1-2: Che cos'è la scienza</title>
+
+<style>
+body{
+  font-family: Arial, sans-serif;
+  background:#f4f9ff;
+  margin:0;
+  padding:20px;
+}
+.container{
+  max-width:900px;
+  margin:auto;
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 0 12px rgba(0,0,0,0.12);
+}
+img{
+  width:100%;
+  max-height:400px;
+  object-fit:cover;
+  border-radius:8px;
+  margin:15px 0;
+}
+nav button{
+  padding:8px 14px;
+  margin:2px;
+  border:none;
+  border-radius:6px;
+  background:#dcecff;
+  color:#084f9e;
+  cursor:pointer;
+}
+nav button:hover{
+  background:#bcd8ff;
+}
+#text p{
+  line-height:1.5;
+}
+.title{
+  color:#033b6b;
+  font-size:1.6em;
+  margin-bottom:8px;
+}
+.prompt{
+  margin-top:10px;
+  padding:10px;
+  background:#eef6ff;
+  border-left:4px solid #8bbcff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<nav id="nav"></nav>
+
+<h2 class="title" id="title"></h2>
+<div id="text"></div>
+<img id="image" src="">
+<div class="prompt" id="prompt"></div>
+
+</div>
+
+<script>
+const slides = [
+{ title:"La scienza nasce dalle domande", img:"IMG_1425.JPG",
+  text:[
+    "La scienza inizia quando ci chiediamo perché le cose accadono.",
+    "Una domanda è una porta che apre un percorso di scoperta.",
+    "Ogni domanda accesa è l’inizio di una ricerca."
+  ],
+  prompt:"Qual è una domanda che ti sei fatto oggi?"
+},
+{ title:"Le domande portano a osservare", img:"IMG_1405.JPG",
+  text:[
+    "Per trovare risposte dobbiamo osservare bene.",
+    "Osservare significa vedere con attenzione, senza fretta.",
+    "L’osservazione è la lente della conoscenza."
+  ],
+  prompt:"Osserva qualcosa vicino a te per 30 secondi in silenzio."
+},
+{ title:"Osservare non è interpretare", img:"IMG_1406.JPG",
+  text:[
+    "Descrivere non significa giudicare.",
+    "Diciamo solo ciò che vediamo, non ciò che pensiamo.",
+    "Questo rende l’informazione chiara e condivisibile."
+  ],
+  prompt:"Descrivi un oggetto senza usare aggettivi personali."
+},
+{ title:"La realtà può essere studiata", img:"IMG_1407.JPG",
+  text:[
+    "Il mondo non è caotico: segue regole e relazioni.",
+    "La scienza ci aiuta a scoprirle passo dopo passo.",
+    "Studiare la realtà significa imparare a leggerla."
+  ],
+  prompt:"Racconta una cosa che hai capito grazie all’osservazione."
+},
+{ title:"L’ipotesi è un’idea da verificare", img:"IMG_1408.JPG",
+  text:[
+    "Un’ipotesi è una spiegazione possibile, non definitiva.",
+    "È un punto di partenza, non un arrivo.",
+    "Va verificata con attenzione e metodo."
+  ],
+  prompt:"Cosa credi che succeda se scaldi il ghiaccio?"
+},
+{ title:"L’esperimento mette alla prova l’ipotesi", img:"IMG_1409.JPG",
+  text:[
+    "L'esperimento permette di controllare se l’ipotesi funziona.",
+    "Si lavora sulla realtà, non sull’opinione.",
+    "L’esperimento è come una domanda fatta al mondo."
+  ],
+  prompt:"Qual è un esperimento quotidiano che fai senza pensarci?"
+},
+{ title:"I risultati possono confermare o correggere", img:"IMG_1410.JPG",
+  text:[
+    "Se l’ipotesi non è confermata, non è un errore.",
+    "Significa che abbiamo scoperto qualcosa in più.",
+    "La scienza cresce proprio correggendo sé stessa."
+  ],
+  prompt:"Racconta una volta in cui cambiare idea ti ha fatto crescere."
+},
+{ title:"La scienza usa linguaggio chiaro", img:"IMG_1411.JPG",
+  text:[
+    "Per capirsi, si usano parole precise.",
+    "La precisione rende possibile confrontare risultati.",
+    "Dire 'lungo 12 cm' è più utile che dire 'un po’ lungo'."
+  ],
+  prompt:"Trasforma una frase vaga in una frase precisa."
+},
+{ title:"La scienza può sbagliare", img:"IMG_1412.JPG",
+  text:[
+    "Gli errori non annullano la scienza: la migliorano.",
+    "Gli scienziati non cercano di avere ragione: cercano la verità.",
+    "La verità cresce correggendo ciò che si pensava prima."
+  ],
+  prompt:"Quando un tuo errore ti ha insegnato qualcosa?"
+},
+{ title:"La scienza riguarda la vita quotidiana", img:"IMG_1413.JPG",
+  text:[
+    "La scienza è nella cucina, nel clima, nel nostro corpo.",
+    "Non è lontana: è nella realtà che viviamo ogni giorno.",
+    "Studiare scienze significa capire meglio il mondo."
+  ],
+  prompt:"Trova tre cose quotidiane che funzionano grazie alla scienza."
+}
+];
+
+let current = 0;
+function render(){
+  document.getElementById("title").textContent = slides[current].title;
+  document.getElementById("image").src = slides[current].img;
+  document.getElementById("text").innerHTML = slides[current].text.map(t=>`<p>${t}</p>`).join("");
+  document.getElementById("prompt").textContent = slides[current].prompt;
+}
+slides.forEach((s,i)=>{
+  let b=document.createElement("button");
+  b.textContent=i+1;
+  b.onclick=()=>{current=i;render();};
+  document.getElementById("nav").appendChild(b);
+});
+render();
+</script>
+</body>
+</html>
