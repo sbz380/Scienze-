@@ -1,2 +1,0 @@
-# Scienze-
-Corso scienze biennio 
